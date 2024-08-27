@@ -43,6 +43,24 @@ The app can be run by opening the `index.html` file in a browser. -->
             background-color: #ddd;
         }
 
+        .question-safety {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: hsl(0, 44%, 29%);
+            color: white;
+            font-size: 3vw;
+            /* padding: 20px; */
+            justify-content: center;
+            align-items: center;
+            /* flex-direction: column; */
+            text-align: center;
+            flex-flow: row wrap;
+        }
+
         .question {
             display: none;
             position: fixed;
@@ -64,6 +82,24 @@ The app can be run by opening the `index.html` file in a browser. -->
         .question-text {
             padding-left: 10%;
             padding-right: 10%;
+        }
+
+        .answer-safety {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: hwb(107 4% 78%);
+            color: white;
+            font-size: 3vw;
+            /* padding: 20px; */
+            justify-content: center;
+            align-items: center;
+            /* flex-direction: column; */
+            text-align: center;
+            flex-flow: row wrap;
         }
 
         .answer {
@@ -172,25 +208,52 @@ The app can be run by opening the `index.html` file in a browser. -->
         let answered_order = [];
         let redo_list = [];
 
-
-        function showQuestion(category, question) {
+        function showQuestionSafety(category, question) {
             if (answered[category][question]) {
                 return;
             }
             currentCategory = category;
             currentQuestion = question;
+            document.querySelector('.question-safety').style.display = 'flex';
+            document.querySelector('.question-safety').innerHTML = `Safety Slide`;
+        }
+
+        function showQuestion() {
+            if (answered[currentCategory][currentQuestion]) {
+                return;
+            }
+            if (event.clientX < window.innerWidth / 2) {
+                document.querySelector('.question-safety').style.display = 'none';
+                return;
+            }
+            document.querySelector('.question-safety').style.display = 'none';
             document.querySelector('.question').style.display = 'flex';
-            document.querySelector('.question').innerHTML = questions[category][question].question;
+            document.querySelector('.question').innerHTML = questions[currentCategory][currentQuestion].question;
+        }
+
+        function showAnswerSafety() {
+            if (answered[currentCategory][currentQuestion]) {
+                return;
+            }
+            if (event.clientX < window.innerWidth / 2) {
+                document.querySelector('.question').style.display = 'none';
+                document.querySelector('.question-safety').style.display = 'flex';
+                return;
+            }
+            document.querySelector('.question').style.display = 'none';
+            document.querySelector('.answer-safety').style.display = 'flex';
+            document.querySelector('.answer-safety').innerHTML = `Safety Slide`;
         }
 
         function showAnswer() {
             // go back to board if user clicked on left side of the screen
             if (event.clientX < window.innerWidth / 2) {
-                document.querySelector('.question').style.display = 'none';
+                document.querySelector('.answer-safety').style.display = 'none';
+                document.querySelector('.question').style.display = 'flex';
                 return;
             }
             else{
-                document.querySelector('.question').style.display = 'none';
+                document.querySelector('.answer-safety').style.display = 'none';
                 document.querySelector('.answer').style.display = 'flex';
                 document.querySelector('.answer').innerHTML = questions[currentCategory][currentQuestion].answer;
             }
@@ -199,7 +262,7 @@ The app can be run by opening the `index.html` file in a browser. -->
         function next() {
             // go back to question if user clicked on left side of the screen
             if (event.clientX < window.innerWidth / 2) {
-                document.querySelector('.question').style.display = 'flex';
+                document.querySelector('.answer-safety').style.display = 'flex';
                 document.querySelector('.answer').style.display = 'none';
                 return;
             }
@@ -241,15 +304,24 @@ The app can be run by opening the `index.html` file in a browser. -->
                     const cell = document.createElement('div');
                     cell.className = 'cell';
                     cell.innerText = `${question_difficulty[j]}`;
-                    cell.onclick = () => showQuestion(i, j);
+                    cell.onclick = () => showQuestionSafety(i, j);
                     container.appendChild(cell);
                 }
             }
+            const question_safety = document.createElement('div');
+            question_safety.className = 'question-safety';
+            question_safety.onclick = showQuestion;
+            document.body.appendChild(question_safety);
 
             const question = document.createElement('div');
             question.className = 'question';
-            question.onclick = showAnswer;
+            question.onclick = showAnswerSafety;
             document.body.appendChild(question);
+
+            const answer_safety = document.createElement('div');
+            answer_safety.className = 'answer-safety';
+            answer_safety.onclick = showAnswer;
+            document.body.appendChild(answer_safety);
 
             const answer = document.createElement('div');
             answer.className = 'answer';
