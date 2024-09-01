@@ -167,7 +167,7 @@ The app can be run by opening the `index.html` file in a browser. -->
             [ // Electromagnetism and Optics - easy to hard
                 { question: `<div class="question-text">The phenomenon of electron transfer has become a cornerstone in modern technology, especially in how we interact with electronic devices on a daily basis. This process is central to various components that enable touchscreens, sensors, and other interfaces to function. Can you name the circuit component that plays a key role in these devices?</div>`, answer: `<div class="answer-text">Capacitor</div>`},
                 { question: `<image src="XKCD_faraday.png" height="500px" class="center-image"><div class="line-break"></div><div class="question-text"> FITB (7,4) </div>`, answer: `<image src="XKCD_faraday_answer.png" height="500px" class="center-image"><div class="line-break"><div class="answer-text">Faraday Cage</div>`},
-                { question: `dummy`, answer: `dummy` }
+                { question: `<div class="question-text">Metamaterials are engineered structures smaller than the wavelengths of light, designed to exhibit unique electromagnetic properties that influence how they interact with electromagnetic fields. In 2006, David Smith from Duke University advanced a concept originally proposed by English theoretical physicist John Pendry, creating a metamaterial that could manipulate microwave flow. This metamaterial was composed of concentric rings with electronic microwave distorters that, when activated, redirected frequency-specific microwaves around the material's centre. Which device from the world of Harry Potter could these metamaterials potentially bring to life in the near future?</div>`, answer: `<div class="answer-text">Invisibility Cloak</div>` }
             ],
             [ // Thermodynamics - easy to hard
                 { question: `<div class="question-text">If we leave a fridge open in a closed room, what will happen to the temperature of the room and why?</div>`, answer: `<div class="answer-text">It gets warmer. Second Law of Thermodynamics</div>`},
@@ -205,7 +205,7 @@ The app can be run by opening the `index.html` file in a browser. -->
         let currentQuestion = -1;
         let answered = Array(6).fill(0).map(() => Array(3).fill(false));
         // answered[0][1] = true;
-        answered[2][2] = true;
+        // answered[2][2] = true;
         // answered[5][0] = true;
         let question_difficulty = ["Easy", "Medium", "Hard"];
         let answered_order = [];
@@ -313,8 +313,8 @@ The app can be run by opening the `index.html` file in a browser. -->
             }
             // document.querySelectorAll('.cell')[1 * 6 + 0 + 6].innerText = '';
             // document.querySelectorAll('.cell')[1 * 6 + 0 + 6].classList.add('answered');
-            document.querySelectorAll('.cell')[2 * 6 + 2 + 6].innerText = '';
-            document.querySelectorAll('.cell')[2 * 6 + 2 + 6].classList.add('answered');
+            // document.querySelectorAll('.cell')[2 * 6 + 2 + 6].innerText = '';
+            // document.querySelectorAll('.cell')[2 * 6 + 2 + 6].classList.add('answered');
             // document.querySelectorAll('.cell')[0 * 6 + 5 + 6].innerText = '';
             // document.querySelectorAll('.cell')[0 * 6 + 5 + 6].classList.add('answered');
 
